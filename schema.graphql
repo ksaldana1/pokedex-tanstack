@@ -1,0 +1,46 @@
+type Dimensions {
+  height: Int!
+  weight: Int!
+}
+
+"""Pokemon base type"""
+type Pokemon {
+  baseExperience: Int!
+  dimensions: Dimensions!
+  id: Int!
+  image_url: String!
+  name: String!
+  types: PokemonType!
+}
+
+type PokemonType {
+  primary: PokemonTypes!
+  secondary: PokemonTypes
+}
+
+enum PokemonTypes {
+  Bug
+  Dark
+  Dragon
+  Electric
+  Fairy
+  Fighting
+  Fire
+  Flying
+  Ghost
+  Grass
+  Ground
+  Ice
+  Normal
+  Poison
+  Psychic
+  Rock
+  Steel
+  Unknown
+  Water
+}
+
+type Query {
+  pokemon(id: Int!): Pokemon
+  pokemons: [Pokemon!]!
+}
