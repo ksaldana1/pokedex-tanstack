@@ -1,11 +1,16 @@
 import { useSpring, animated } from "@react-spring/web";
 import { useState } from "react";
+import { PokemonTypes } from "../services/queries";
+import { pokemonTypeToColor } from "../utils/helpers";
 
 export interface PokemonProps {
   pokemon: {
     id: number;
     name: string;
     image_url: string;
+    types: {
+      primary: PokemonTypes;
+    };
   };
   onClick: (id: number) => void;
   selected: number | null;
@@ -31,7 +36,6 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
     isSelection: selected && selected === pokemon.id ? 1 : 0,
   });
   const gridPosition = pokemon.id % 3;
-  console.log("id + grid", pokemon.id, gridPosition);
   return (
     <animated.div
       onClick={() =>
@@ -44,7 +48,10 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
         boxShadow: "0px 1px 3px 1px rgba(0, 0, 0, 0.2)",
         viewTransitionName: pokemon.name,
         ...props,
-        backgroundColor: props.isSelection.to([0, 1], ["white", "#74CB48"]),
+        backgroundColor: props.isSelection.to(
+          [0, 1],
+          ["white", pokemonTypeToColor(pokemon.types.primary)]
+        ),
       }}
       className={`flex flex-col justify-center items-center rounded-lg bg-white relative hover:bg-gray-100 hover:cursor-pointer`}
     >

@@ -1,21 +1,7 @@
 import { createFileRoute, useLoaderData } from "@tanstack/react-router";
-import { graphql } from "gql.tada";
 import { Pokemons } from "../components/Pokemon";
 import { client } from "../services/client";
-
-const PokemonsQuery = graphql(`
-  query Pokemons {
-    pokemons {
-      id
-      name
-      image_url
-      types {
-        primary
-        secondary
-      }
-    }
-  }
-`);
+import { PokemonsQuery } from "../services/queries";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
