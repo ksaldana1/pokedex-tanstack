@@ -34,7 +34,9 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
   console.log("id + grid", pokemon.id, gridPosition);
   return (
     <animated.div
-      onClick={() => onClick(pokemon.id)}
+      onClick={() =>
+        (!selected || selected === pokemon.id) && onClick(pokemon.id)
+      }
       style={{
         x: props.isSelection.to([0, 1], [0, gridToPosition(gridPosition)]),
         width: props.isSelection.to([0, 1], [192, 300]),
