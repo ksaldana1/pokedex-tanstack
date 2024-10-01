@@ -9,6 +9,10 @@ const PokemonsQuery = graphql(`
       id
       name
       image_url
+      types {
+        primary
+        secondary
+      }
     }
   }
 `);

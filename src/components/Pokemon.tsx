@@ -15,22 +15,30 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
   const props = useSpring({
     scale: selected === pokemon.id ? 2 : 1,
     opacity: selected && selected !== pokemon.id ? 0 : 1,
+    isSelection: selected && selected === pokemon.id ? 1 : 0,
   });
   return (
     <animated.div
       onClick={() => onClick(pokemon.id)}
       style={{
-        width: 192,
-        height: 192,
+        width: props.isSelection.to([0, 1], [192, 300]),
+        height: props.isSelection.to([0, 1], [192, 300]),
         boxShadow: "0px 1px 3px 1px rgba(0, 0, 0, 0.2)",
         viewTransitionName: pokemon.name,
         ...props,
+        backgroundColor: props.isSelection.to([0, 1], ["white", "#74CB48"]),
       }}
       className={`flex flex-col justify-center items-center rounded-lg bg-white relative hover:bg-gray-100 hover:cursor-pointer`}
     >
-      <div className="min-w-full text-right pe-2">
+      <animated.div
+        style={{
+          color: props.isSelection.to([0, 1], ["black", "white"]),
+          y: props.isSelection.to([0, 1], [0, -50]),
+        }}
+        className="min-w-full text-right pe-2"
+      >
         {pokemon.id.toString().padStart(4, "#000")}
-      </div>
+      </animated.div>
       <img
         width={128}
         height={128}
@@ -38,11 +46,27 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
         src={pokemon.image_url}
         className="z-10"
       />
-      <div
-        style={{ background: "rgb(239, 239, 239)" }}
+      <animated.div
+        style={{
+          background: props.isSelection.to(
+            [0, 1],
+            ["rgb(239, 239, 239)", "white"]
+          ),
+          height: props.isSelection.to([0, 1], ["50px", "150px"]),
+        }}
         className="absolute bottom-0 z-0 w-full rounded-lg h-1/3"
       />
-      <div className="z-10 mb-2">{pokemon.name}</div>
+      <animated.div
+        style={{
+          y: props.isSelection.to([0, 1], [0, -203]),
+          x: props.isSelection.to([0, 1], [0, -25]),
+          color: props.isSelection.to([0, 1], ["black", "white"]),
+          scale: props.isSelection.to([0, 1], [1, 1.5]),
+        }}
+        className="z-10 mb-2"
+      >
+        {pokemon.name}
+      </animated.div>
     </animated.div>
   );
 }
