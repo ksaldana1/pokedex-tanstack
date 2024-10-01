@@ -11,16 +11,32 @@ export interface PokemonProps {
   selected: number | null;
 }
 
+function gridToPosition(position: number) {
+  switch (position) {
+    case 0:
+      return -250;
+    case 1:
+      return 250;
+    case 2:
+      return 0;
+    default:
+      return 0;
+  }
+}
+
 export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
   const props = useSpring({
     scale: selected === pokemon.id ? 2 : 1,
     opacity: selected && selected !== pokemon.id ? 0 : 1,
     isSelection: selected && selected === pokemon.id ? 1 : 0,
   });
+  const gridPosition = pokemon.id % 3;
+  console.log("id + grid", pokemon.id, gridPosition);
   return (
     <animated.div
       onClick={() => onClick(pokemon.id)}
       style={{
+        x: props.isSelection.to([0, 1], [0, gridToPosition(gridPosition)]),
         width: props.isSelection.to([0, 1], [192, 300]),
         height: props.isSelection.to([0, 1], [192, 300]),
         boxShadow: "0px 1px 3px 1px rgba(0, 0, 0, 0.2)",
