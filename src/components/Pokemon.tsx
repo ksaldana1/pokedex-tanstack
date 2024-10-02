@@ -19,9 +19,9 @@ export interface PokemonProps {
 function gridToPosition(position: number) {
   switch (position) {
     case 0:
-      return -250;
+      return -125;
     case 1:
-      return 250;
+      return 125;
     case 2:
       return 0;
     default:
@@ -58,14 +58,15 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
           [0, 1],
           ["white", pokemonTypeToColor(pokemon.types.primary)]
         ),
+        fontFamily: "Poppins",
       }}
       className={`flex flex-col justify-center items-center rounded-lg bg-white relative hover:bg-gray-100 hover:cursor-pointer`}
     >
       <animated.div
         style={{
           color: props.isSelection.to([0, 1], ["black", "white"]),
-          fontFamily: "Poppins",
-          y: props.isSelection.to([0, 1], [0, -10]),
+          y: props.isSelection.to([0, 1], [0, -9]),
+          x: props.isSelection.to([0, 1], [0, -5]),
           fontSize: props.isSelection.to([0, 1], [10, 5]),
           translateZ: 0,
           opacity: props.isSelection.to([0, 1], [70, 1]),
@@ -78,10 +79,11 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
         width={72}
         height={72}
         alt={pokemon.name}
-        src={pokemon.image_url}
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
         className="z-10"
         style={{
-          y: props.isSelection.to([0, 1], [0, -25]),
+          y: props.isSelection.to([0, 1], [0, -20]),
+          scale: props.isSelection.to([0, 1], [1, 0.75]),
         }}
       />
       <animated.div
@@ -93,13 +95,13 @@ export function Pokemon({ selected, pokemon, onClick }: PokemonProps) {
           height: props.isSelection.to([0, 1], ["44px", "76px"]),
         }}
         className="absolute bottom-0 z-0 w-full rounded-lg h-1/3 mx-8"
-      >
-        Hello World
-      </animated.div>
+      ></animated.div>
       <animated.div
         style={{
           color: props.isSelection.to([0, 1], ["black", "white"]),
-          fontFamily: "Poppins",
+          y: props.isSelection.to([0, 1], [0, -93]),
+          x: props.isSelection.to([0, 1], [0, -28]),
+          scale: props.isSelection.to([0, 1], [1, 0.5]),
         }}
         className="z-10 mb-2 text-xs"
       >
