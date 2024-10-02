@@ -8,9 +8,6 @@ export const Route = createFileRoute("/")({
     const { data } = await client.query(PokemonsQuery, {});
     return data;
   },
-  pendingComponent: () => {
-    return <div>Loading...</div>;
-  },
   component: () => {
     const { pokemons } = useLoaderData({
       from: "/",
